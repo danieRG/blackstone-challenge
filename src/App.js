@@ -1,9 +1,36 @@
+import {useState, useEffect} from 'react';
 import { Tweet }  from './components/tweet/';
 import './App.css';
 import { Box } from '@mui/material';
 import { Layout } from './components/layout';
+import socketIOClient from 'socket.io-client'
+import axios from 'axios'
 
 function App() {
+  const [tweets, setTweets] = useState([])
+  const [term, setTerm] = useState('')
+
+  useEffect(() => {
+        const socket = socketIOClient('http://localhost:3000/')
+
+    socket.on('connect', () => {
+      socket.on('newTweet', (tweet) => {
+        setTweets(tweet)
+      })
+      socket.on('searchTerm', (term) => {
+        setTerm({term})
+        //document.getElementById('searchInput').value = ''
+       // this.props.alert.show('Tracking term was updated!')
+      })
+    })
+    socket.on('disconnect', () => {
+      socket.off('newTweet')
+      socket.removeAllListeners('newTweet')
+    })
+  },[])
+
+  let tweetsAsc = tweets.reverse();
+  console.log(tweets)
   return (
     <div className="App">
       <Layout>
@@ -13,13 +40,11 @@ function App() {
             flexDirection: 'column',
             alignItems: 'center',
         }}>
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
+          {
+            tweets.map((tweet, index) => {
+              return <Tweet key={index} tweet={tweet} />
+            })
+          }
         </Box>
 
       </Layout>
