@@ -19,8 +19,6 @@ function App() {
       })
       socket.on('searchTerm', (term) => {
         setTerm({term})
-        //document.getElementById('searchInput').value = ''
-       // this.props.alert.show('Tracking term was updated!')
       })
     })
     socket.on('disconnect', () => {
