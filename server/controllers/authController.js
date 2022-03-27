@@ -6,11 +6,9 @@ module.exports = {
         try {
             const { email, password } = req.body
             const login = await authModel.login(email, password);
-            
-            const token = 'ajxnjskcjkcnkjasjnckjsanxkjsanx'
 
             if(login){
-                res.status(200).send({ token: token })
+                res.status(200).send({ token: login })
             }
         } 
         catch (error) {
