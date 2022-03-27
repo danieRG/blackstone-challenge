@@ -6,9 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addTermAction } from '../../actions/tweets';
-
+import { tweetsApi } from '../../api'
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,13 +60,34 @@ export const Header = () => {
   }
 
   const handleClickButtonApply = (value) => {
-    if (terms.length < 3) {
-      dispatch(addTermAction(value));
+    const newValue = value.toLowerCase()
+
+    if (terms.length < 3 && newValue !== '' && !terms.includes(newValue)) {
+      dispatch(addTermAction(newValue));
     }
 
     setInputValue('');
 
   }
+
+  useEffect(() => {
+    if (terms.length > 0) {
+      const updateTerms = async (newTerms) => {
+
+        await tweetsApi.post('/updateSearchTerm', {
+          searchTerm: newTerms
+        }).then(function (response) {
+          console.log(response);
+        })
+          .catch(function (error) {
+            console.log(error);
+          })
+      }
+
+      updateTerms(terms)
+    }
+
+  }, [terms])
 
   return (
     <Box sx={{ flexGrow: 1 }}>

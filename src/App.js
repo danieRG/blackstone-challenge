@@ -1,16 +1,12 @@
 import {useState, useEffect} from 'react';
 import { Tweet }  from './components/tweet/';
-import './App.css';
 import { Box } from '@mui/material';
 import { Layout } from './components/layout';
 import io from 'socket.io-client'
-//import axios from 'axios'
-import { Provider } from 'react-redux';
-import { store } from './store/store';
+import './App.css';
 
 const App = () =>{
   const [tweets, setTweets] = useState([])
-  //const [term, setTerm] = useState('')
 
   useEffect(() => {
     
@@ -20,9 +16,6 @@ const App = () =>{
       socket.on('newTweet', (tweet) => {
         setTweets((prevTweets) => [...prevTweets, tweet])
       })
-      socket.on('searchTerm', (term) => {
-        //setTerm({term})
-      })
     })
     
     socket.on('disconnect', () => {
@@ -30,21 +23,8 @@ const App = () =>{
       socket.removeAllListeners('newTweet')
     })
   },[])
-
-  /* const updateSearchTerm = () => {
-    axios.post('/updateSearchTerm', {
-      searchTerm: "tesla"
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  } */
-
+  
   return (
-    <Provider store={store}>
     <div className="App">
         <Layout>
           <Box sx={{
@@ -61,7 +41,6 @@ const App = () =>{
           </Box>
         </Layout>
     </div>
-    </Provider>
   );
 }
 

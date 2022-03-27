@@ -1,18 +1,17 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box } from '@mui/material';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
+import { removeTermAction } from '../../actions/tweets';
 
 
 export const ChipComponent = () => {
   const { terms } = useSelector(state => state.tweets)
+  const dispatch = useDispatch();
 
-  const handleDelete = () => {
-    console.log("deletinnng")
-    //elimiinar de redux
-    /*     const filteredTopics = topics.filter((_, i) => i !== index)
-    
-        setTopics(filteredTopics); */
+  const handleDelete = (index) => {
+    const filteredTopics = terms.filter((_, i) => i !== index)
+    dispatch(removeTermAction(filteredTopics));
   };
 
   return (
@@ -24,8 +23,8 @@ export const ChipComponent = () => {
     }}>
       <Stack direction="row" spacing={2}>
         {
-          terms.map((word, index) => (
-            <Chip key={index} label={word} variant="outlined" onDelete={handleDelete} />
+          terms.map((term, index) => (
+            <Chip key={index} label={term} variant="outlined" onDelete={() => handleDelete(index)} />
           ))
         }
 

@@ -2,8 +2,7 @@ import { types } from "../types/types";
 
 const initialState = {
     tweets: [],
-    terms:[],
-    searchTerm: ""
+    terms:[]
 }
 
 export const tweetsReducer = (state = initialState, action) => {
@@ -13,15 +12,15 @@ export const tweetsReducer = (state = initialState, action) => {
                 ...state,
                 terms: [...state.terms, action.payload]
             }
+        case types.tweetsRemoveTerm:
+            return {
+                ...state,
+                terms: action.payload
+            }
         case types.tweetsAddTweet:
             return {
                 ...state,
                 tweets: [...state.tweets, action.payload]
-            }
-        case types.tweetsUpdateSearchTerm:
-            return {
-                ...state,
-                searchTerm: action.payload
             }
         default:
             return state

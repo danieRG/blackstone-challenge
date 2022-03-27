@@ -2,13 +2,18 @@ const http = require('http')
 const express = require('express')
 const socketIO = require('socket.io')
 const Twit = require('twit')
-//const cors = require('cors')
+const cors = require('cors')
 require('dotenv').config()
 
 const app = express()
 const server = http.createServer(app)
 const io = socketIO(server)
 
+app.use(express.json())
+
+app.use(cors({
+  origin: '*',
+}))
 
 const T = new Twit({
   consumer_key: process.env.CONSUMER_KEY,
@@ -34,13 +39,14 @@ const startTwitterStream = () => {
 }
 
 const stopTwitterStream = () => {
-  console.log('Stopping Twitter stream.')
+  console.log('Stopping stream.')
   twitterStream.stop()
   twitterStream = null
 }
 
 app.post('/updateSearchTerm', (req, res) => {
-  searchTerm = req.body.searchTerm
+  searchTerm = req.body.searchTerm.join(',  ')
+
   res.status(200).send({ searchTerm: searchTerm })
   stopTwitterStream()
   startTwitterStream()
@@ -56,6 +62,7 @@ io.on('connection', (socket) => {
     console.log('Client disconnected.')
   })
 })
+
 module.exports.server = server.listen(3001, () => {
   console.log('Server listening on port 3001')
 })
