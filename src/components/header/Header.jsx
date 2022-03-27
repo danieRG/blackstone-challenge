@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -5,6 +6,9 @@ import Toolbar from '@mui/material/Toolbar';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import { useState } from 'react';
+import { addTermAction } from '../../actions/tweets';
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -46,6 +50,24 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export const Header = () => {
+  const [inputValue, setInputValue] = useState('');
+
+  const { terms } = useSelector(state => state.tweets)
+  const dispatch = useDispatch();
+
+  const handleInputChange = (e) => {
+    setInputValue(e.target.value);
+  }
+
+  const handleClickButtonApply = (value) => {
+    if (terms.length < 3) {
+      dispatch(addTermAction(value));
+    }
+
+    setInputValue('');
+
+  }
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -59,12 +81,15 @@ export const Header = () => {
             <StyledInputBase
               placeholder="Type a topic"
               inputProps={{ 'aria-label': 'search' }}
+              onChange={handleInputChange}
+              value={inputValue}
             />
           </Search>
           <Box sx={{ ml: 4 }}>
             <Button
               variant="contained"
               color='secondary'
+              onClick={() => handleClickButtonApply(inputValue)}
             >
               Apply
             </Button>

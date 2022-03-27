@@ -2,13 +2,13 @@ const http = require('http')
 const express = require('express')
 const socketIO = require('socket.io')
 const Twit = require('twit')
+//const cors = require('cors')
 require('dotenv').config()
 
-let app = express()
-let server = http.createServer(app)
-let io = socketIO(server)
+const app = express()
+const server = http.createServer(app)
+const io = socketIO(server)
 
-app.use(express.json())
 
 const T = new Twit({
   consumer_key: process.env.CONSUMER_KEY,
@@ -18,45 +18,44 @@ const T = new Twit({
 })
 
 let twitterStream
-let terms = 'js'
+let searchTerm = 'oppo'
 
-const startStream = () => {
+const startTwitterStream = () => {
   if (twitterStream == null) {
-    console.log('Now streaming.')
-    twitterStream = T.stream('statuses/filter', { track: 'js' })
+    console.log('Streaming now.')
+    twitterStream = T.stream('statuses/filter', { track: searchTerm })
     twitterStream.on('tweet', function (tweet) {
       io.emit('newTweet', tweet)
     })
   } else {
     console.log('Stream already exists.')
   }
-  io.emit('searchWord', terms)
+  io.emit('searchTerm', searchTerm)
 }
 
-const stopStream = () => {
-  console.log('Stopping stream.')
+const stopTwitterStream = () => {
+  console.log('Stopping Twitter stream.')
   twitterStream.stop()
   twitterStream = null
 }
 
-app.post('/updateTerms', (req, res) => {
-  terms = req.body.terms
-  res.status(200).send({ searchWord: terms })
-  stopStream()
-  startStream()
+app.post('/updateSearchTerm', (req, res) => {
+  searchTerm = req.body.searchTerm
+  res.status(200).send({ searchTerm: searchTerm })
+  stopTwitterStream()
+  startTwitterStream()
 })
 
 io.on('connection', (socket) => {
   console.log('Client connected.')
-  startStream()
+  startTwitterStream()
   socket.on('disconnect', () => {
     if (Object.keys(io.sockets.sockets).length === 0) {
-      stopStream()
+      stopTwitterStream()
     }
     console.log('Client disconnected.')
   })
 })
-
 module.exports.server = server.listen(3001, () => {
   console.log('Server listening on port 3001')
 })
