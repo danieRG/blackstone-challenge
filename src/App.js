@@ -5,7 +5,6 @@ import { Box } from '@mui/material';
 import { Layout } from './components/layout';
 import io from 'socket.io-client'
 import axios from 'axios'
-import { initSocket } from './utils/socketIO';
 
 const App = () =>{
   const [tweets, setTweets] = useState([])
