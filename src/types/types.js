@@ -1,6 +1,10 @@
 export const types = {
+    //tweets
     tweetsAddTerm: 'tweetsAddTerm',
     tweetsRemoveTerm: 'tweetsRemoveTerm',
     tweetsAddTweet: 'tweetsAddTweet',
-    tweetsUpdateSearchTerm: 'tweetsUpdateSearchTerm'
+    tweetsUpdateSearchTerm: 'tweetsUpdateSearchTerm',
+
+    //ui
+    uiSetAlertOpen: 'uiSetAlertOpen',
 }
