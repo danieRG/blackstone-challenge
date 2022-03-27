@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import { useEffect, useState } from 'react';
 import { addTermAction } from '../../actions/tweets';
 import { tweetsApi } from '../../api'
+import { setAlertOpen } from '../../actions/ui';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -64,6 +65,7 @@ export const Header = () => {
 
     if (terms.length < 3 && newValue !== '' && !terms.includes(newValue)) {
       dispatch(addTermAction(newValue));
+      dispatch(setAlertOpen(`Now streaming  ${newValue}`));
     }
 
     setInputValue('');
