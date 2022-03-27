@@ -44,6 +44,8 @@ const stopTwitterStream = () => {
   twitterStream = null
 }
 
+app.use('/api', require('./routes/index'))
+
 app.post('/updateSearchTerm', (req, res) => {
   searchTerm = req.body.searchTerm.join(',  ')
 
