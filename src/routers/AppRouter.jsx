@@ -4,22 +4,22 @@ import {
     Redirect,
     Switch
 } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { MainComponent } from '../components/main'
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AuthRouter } from './AuthRouter';
 
 export const AppRouter = () => {
-    const dispatch = useDispatch();
 
     const [checking, setChecking] = useState(true)
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const { loggedIn } = useSelector(state => state.auth)
 
     useEffect(() => {
+        let token = localStorage.getItem('token')
 
-        if (localStorage.getItem('token')) {
+        if (token) {
             setIsAuthenticated(true)
         } else {
             setIsAuthenticated(false)
@@ -27,9 +27,7 @@ export const AppRouter = () => {
 
         setChecking(false);
 
-    }, [dispatch, loggedIn])
-
-    console.log(localStorage.getItem('token'))
+    }, [loggedIn])
 
     if (checking) {
         return <div>Checking...</div>

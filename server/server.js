@@ -23,7 +23,7 @@ const T = new Twit({
 })
 
 let twitterStream
-let searchTerm = 'oppo'
+let searchTerm = 'blackstone'
 
 const startTwitterStream = () => {
   if (twitterStream == null) {

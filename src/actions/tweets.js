@@ -9,3 +9,8 @@ export const removeTermAction = (newArr) => ({
     type: types.tweetsRemoveTerm,
     payload: newArr,
 })
+
+export const addTweetsAction = (tweets) => ({
+    type: types.tweetsAddTweet,
+    payload: tweets,
+})

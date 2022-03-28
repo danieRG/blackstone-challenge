@@ -79,16 +79,12 @@ export const Header = () => {
 
   useEffect(() => {
     if (terms.length > 0) {
+
       const updateTerms = async (newTerms) => {
 
         await tweetsApi.post('/updateSearchTerm', {
           searchTerm: newTerms
-        }).then(function (response) {
-          console.log(response);
         })
-          .catch(function (error) {
-            console.log(error);
-          })
       }
 
       updateTerms(terms)
@@ -97,13 +93,13 @@ export const Header = () => {
   }, [terms])
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, mb: 8 }}>
+      <AppBar position="fixed">
         <Toolbar sx={{
           justifyContent: 'center',
         }}>
           <Button color="inherit" sx={{
-            display: 'unset'
+            mr: 2,
           }}
             onClick={handleLogout}
           >
