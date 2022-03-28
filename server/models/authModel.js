@@ -13,7 +13,7 @@ authModel.login = async(email, password) => {
         if(isLoggedIn){
             const token  = authUtils.generateToken(user.id, user.name, user.email)
 
-            return token;
+            return {token: token, displayName: user.name};
         }
 
         return('Wrong credentials')

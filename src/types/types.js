@@ -7,4 +7,8 @@ export const types = {
 
     //ui
     uiSetAlertOpen: 'uiSetAlertOpen',
+
+    //
+    login: 'login',
+    logout: 'logout',
 }

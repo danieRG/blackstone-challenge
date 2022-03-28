@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { addTermAction } from '../../actions/tweets';
 import { tweetsApi } from '../../api'
 import { setAlertOpen } from '../../actions/ui';
+import { startLogout } from '../../actions/auth';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -72,6 +73,10 @@ export const Header = () => {
 
   }
 
+  const handleLogout = () => {
+    dispatch(startLogout());
+  }
+
   useEffect(() => {
     if (terms.length > 0) {
       const updateTerms = async (newTerms) => {
@@ -97,6 +102,13 @@ export const Header = () => {
         <Toolbar sx={{
           justifyContent: 'center',
         }}>
+          <Button color="inherit" sx={{
+            display: 'unset'
+          }}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
           <Search>
             <SearchIconWrapper>
               <SearchIcon />
