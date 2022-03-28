@@ -22,6 +22,7 @@ export const tweetsReducer = (state = initialState, action) => {
                 ...state,
                 tweets: [...state.tweets, action.payload]
             }
+
         default:
             return state
     }

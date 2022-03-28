@@ -4,7 +4,8 @@ export const types = {
     tweetsRemoveTerm: 'tweetsRemoveTerm',
     tweetsAddTweet: 'tweetsAddTweet',
     tweetsUpdateSearchTerm: 'tweetsUpdateSearchTerm',
-
+    tweetsInitStream: 'tweetsInitStream',
+    
     //ui
     uiSetAlertOpen: 'uiSetAlertOpen',
 

@@ -79,16 +79,12 @@ export const Header = () => {
 
   useEffect(() => {
     if (terms.length > 0) {
+
       const updateTerms = async (newTerms) => {
 
         await tweetsApi.post('/updateSearchTerm', {
           searchTerm: newTerms
-        }).then(function (response) {
-          console.log(response);
         })
-          .catch(function (error) {
-            console.log(error);
-          })
       }
 
       updateTerms(terms)
