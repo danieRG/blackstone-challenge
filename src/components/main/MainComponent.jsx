@@ -24,7 +24,7 @@ export const MainComponent = () => {
             socket.removeAllListeners('newTweet')
         });
 
-    }, [])
+    }, [dispatch])
 
     let tweetsList = tweets.map((tweet, index) => {
         return <Tweet key={index} tweet={tweet} />
