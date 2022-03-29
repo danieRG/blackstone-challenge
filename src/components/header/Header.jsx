@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react';
 import { addTermAction } from '../../actions/tweets';
 import { tweetsApi } from '../../api'
 import { setAlertOpen } from '../../actions/ui';
-import { startLogout } from '../../actions/auth';
+/* import { startLogout } from '../../actions/auth'; */
 import { Search, SearchIconWrapper, StyledInputBase } from './Search';
 
 
