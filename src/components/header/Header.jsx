@@ -34,9 +34,9 @@ export const Header = () => {
 
   }
 
-  const handleLogout = () => {
-    dispatch(startLogout());
-  }
+  /*   const handleLogout = () => {
+      dispatch(startLogout());
+    } */
 
   useEffect(() => {
     if (terms.length > 0) {
@@ -59,13 +59,13 @@ export const Header = () => {
         <Toolbar sx={{
           justifyContent: 'center',
         }}>
-          <Button color="inherit" sx={{
+          {/*           <Button color="inherit" sx={{
             mr: 2,
           }}
             onClick={handleLogout}
           >
             Logout
-          </Button>
+          </Button> */}
           <Search>
             <SearchIconWrapper>
               <SearchIcon />

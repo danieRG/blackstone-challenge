@@ -9,6 +9,8 @@ import { MainComponent } from '../components/main'
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import { AuthRouter } from './AuthRouter';
+import { Route } from 'react-router-dom';
+import { LoginScreen } from '../components/auth/LoginScreen';
 
 export const AppRouter = () => {
 
@@ -37,7 +39,8 @@ export const AppRouter = () => {
         <div>
             <Router>
                 <Switch>
-                    <PrivateRoute
+                    <Route path={'/'} component={MainComponent} />
+                    {/*                     <PrivateRoute
                         isAuthenticated={isAuthenticated}
                         component={MainComponent}
                         path="/"
@@ -47,10 +50,10 @@ export const AppRouter = () => {
                     <PublicRoute
                         isAuthenticated={isAuthenticated}
                         component={AuthRouter}
-                        path="/auth/login"
+                        path="/auth"
                     />
 
-                    <Redirect to="/auth/login" />
+                    <Redirect to="/auth/login" /> */}
                 </Switch>
             </Router>
         </div>
