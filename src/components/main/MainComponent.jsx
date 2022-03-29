@@ -25,7 +25,7 @@ export const MainComponent = () => {
         });
 
     }, [loggedIn, dispatch])
-    console.log(socket)
+
     let tweetsList = tweets.map((tweet, index) => {
         return <Tweet key={index} tweet={tweet} />
     });
