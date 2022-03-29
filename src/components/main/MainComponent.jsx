@@ -10,9 +10,9 @@ import { addTweetsAction } from '../../actions/tweets';
 export const MainComponent = () => {
     const dispatch = useDispatch();
     const { tweets } = useSelector(state => state.tweets)
+    const { loggedIn } = useSelector(state => state.auth)
 
     useEffect(() => {
-
         socket.on('connect', () => {
             socket.on('newTweet', (tweet) => {
                 dispatch(addTweetsAction(tweet))
@@ -24,8 +24,8 @@ export const MainComponent = () => {
             socket.removeAllListeners('newTweet')
         });
 
-    }, [dispatch])
-
+    }, [loggedIn, dispatch])
+    console.log(socket)
     let tweetsList = tweets.map((tweet, index) => {
         return <Tweet key={index} tweet={tweet} />
     });
